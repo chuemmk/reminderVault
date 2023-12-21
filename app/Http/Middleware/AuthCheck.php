@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class AuthCheck
 {
@@ -16,15 +17,17 @@ class AuthCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!session()->has('LoggedUser') && ($request->path()!='user\login' && $request->path()!='user\register')){
-            return redirect('user\login')->with('fail', 'You must be logged in first');
+
+        if(!session()->has('loggedInUser') && ($request->path()!= 'user/login' && $request->path() != 'user/register')){
+            return redirect('user/login')->with('fail', 'You must be logged in first');
         }
 
-        if(session()->has('LoggedUser') && ($request->path()=='user\login' || $request->path() =='user\register')){
+        if(session()->has('loggedInUser') && ($request->path() == 'user/login' || $request->path() == 'user/register')){
             return back();
         }
 
         return $next($request);
+        
     }
-}
+} 
 ?>

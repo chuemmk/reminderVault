@@ -6,18 +6,20 @@ use Illuminate\Support\Facades\Log;
 use App\Models\Event;
 use Faker\Core\Color;
 use Illuminate\Http\Request;
+use App\Models\Note;
 
 class EventController extends Controller
 {
     public function index(Request $request)
     {
-  
+        $notes = Note::all();
+        return view('schedule.index', compact('notes'));
+
         if($request->ajax()) {
        
             $data = Event::whereDate('start', '>=', $request->start)
                     ->whereDate('end',   '<=', $request->end)
                     ->get(['id', 'title', 'start', 'end']);
-
   
             return response()->json($data);
         }
@@ -30,46 +32,47 @@ class EventController extends Controller
      *
      * @return response()
      */
-    public function ajax(Request $request)
-    {
+
+    // public function ajax(Request $request)
+    // {
  
-        switch ($request->type) {
-           case 'add':
-              $event = Event::create([
-                  'title' => $request->title,
-                  'start' => $request->start,
-                  'end' => $request->end,
-              ]);
+    //     switch ($request->type) {
+    //        case 'add':
+    //           $event = Event::create([
+    //               'title' => $request->title,
+    //               'start' => $request->start,
+    //               'end' => $request->end,
+    //           ]);
  
-              return response()->json($event);
-             break;
+    //           return response()->json($event);
+    //          break;
   
-           case 'update':
-              $event = Event::find($request->id)->update([
-                  'title' => $request->title,
-                  'start' => $request->start,
-                  'end' => $request->end,
-              ]);
+    //        case 'update':
+    //           $event = Event::find($request->id)->update([
+    //               'title' => $request->title,
+    //               'start' => $request->start,
+    //               'end' => $request->end,
+    //           ]);
  
-              return response()->json($event);
-             break;
+    //           return response()->json($event);
+    //          break;
   
-           case 'delete':
-              $event = Event::find($request->id)->delete();
+    //        case 'delete':
+    //           $event = Event::find($request->id)->delete();
   
-              return response()->json($event);
-             break;
+    //           return response()->json($event);
+    //          break;
              
-           default:
-             # code...
-             break;
-        }
-    }
+    //        default:
+    //          # code...
+    //          break;
+    //     }
+    // }
+
     public function store(Request $request)
     {
+
         Event::create($request->all());
-        return redirect()->route('schedule.index');
+         return redirect()->route('schedule.index');
     }
-
-
 }

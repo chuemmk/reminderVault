@@ -1,6 +1,23 @@
 @extends('layout.main')
 
 @section('content')
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            {{-- <h4 class="page-title">Dashboard</h4> --}}
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{route('profile.dashboard')}}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Note</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
@@ -19,7 +36,7 @@
                     {{Session::get('message')}}
                 </div>
                 @endif
-                <table class="table table-bordered">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -31,9 +48,9 @@
                     </thead>
                     <tbody>
                         @isset($notes)
-                        @foreach ($notes as $key => $note)
+                        @foreach ($notes as $note)
                             <tr>
-                                <td>{{$key + 1}}</td>
+                                <td>{{$note->id}}</td>
                                 <td>{{$note->title}}</td>
                                 <td>{{$note->body}}</td>
                                 <td>{{$note->type}}</td>

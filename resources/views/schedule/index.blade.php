@@ -3,6 +3,20 @@
 
 @section('content')
 
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{route('profile.dashboard')}}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Schedule</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="container-fluid">
     <div class="row">
@@ -35,7 +49,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"><strong>Add Reminder</strong></h4>
+                    <h4 class="modal-title"><strong>Add Event</strong></h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
             </div>
@@ -46,7 +60,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title"><strong>Add</strong> a reminder</h4>
+                    <h4 class="modal-title"><strong>Add</strong> an event</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
 
@@ -54,6 +68,16 @@
                     <form action="{{route('event.store')}}" method="POST">
                         @csrf
                         <div class="row">
+
+                            <div class="col-md-6">
+                                <label class="control-label">Note ID</label>
+                                <select class="form-control form-white" name="status" required="">
+                                    @foreach($notes as $note)
+                                        <option value="{{$note->id}}">{{$note->id}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="col-md-6">
                                 <label class="control-label">Title</label>
                                 <input class="form-control form-white" placeholder="Enter title" type="text" name="title" required="" />
@@ -63,12 +87,6 @@
                                 <label class="control-label">Description</label>
                                 <input class="form-control form-white" placeholder="Enter description" type="text" name="description" required="" />
                             </div>
-
-
-                            {{-- <div class="col-md-6">
-                                <label class="control-label">Status</label>
-                                <input class="form-control form-white" placeholder="Enter status" type="text" name="status" required=""/>
-                            </div> --}}
 
                             <div class="col-md-6">
                                 <label class="control-label">Start Date</label>
@@ -82,7 +100,8 @@
                             
                         </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer"  style="display: flex; justify-content: space-between;">
+                    <a href="{{route('noti.index')}}" style="color: blue; text-align: left;">Want to receive notification about event?</a>
                     <button type="submit" class="btn btn-danger waves-effect waves-light save-category">Save</button>
                     <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
                 </div>

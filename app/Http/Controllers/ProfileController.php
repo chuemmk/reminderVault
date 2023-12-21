@@ -4,92 +4,52 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Profile;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    function view()
     {
-        return view('profile.index');
+        return view('profile.view');
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    
+    public function dashboard()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-        Admin::create($request->all());
-         return redirect()->route('profile.index');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Profile $profile)
-    {
-        return view('profile.edit', compact('profile'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Admin $admin)
-    {
-        $admin->update($request->all());
-        return redirect()->route('profile.index');
+        $data = ['loggedInUserInfo'=>Admin::where('id', '=', session('loggedInUser'))->first()];
+        return view('profile.dashboard', $data);
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function update_password(Request $request)
     {
-        //
+        $request->validate([
+            'current_password'=>'required|min:5',
+            'new_password'=>'required|min:5',
+            'confirm_password'=>'required|same:new_password'
+        ]);
+
+        $user = auth()->user();
+
+        // dd(auth()->user());
+        if($user){
+            $user = User::find($user->id);
+            $user->update([
+                'password' => bcrypt($request->new_password)
+            ]);
+            return redirect()->back()->with('success', 'Password changed successfully.');
+        }
+        else{
+            return redirect()->back()->with('error', 'Old password is not matched.');
+        }
     }
 
-    // In your controller
-
+    public function show()
+    {
+        return view('profile.dashboard');
+    
+    }
 }

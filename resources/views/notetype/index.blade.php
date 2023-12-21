@@ -1,6 +1,23 @@
 @extends('layout.main')
 
 @section('content')
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            {{-- <h4 class="page-title">Note Type</h4> --}}
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{route('profile.dashboard')}}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">NoteType</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
@@ -32,9 +49,9 @@
                     </thead>
                     <tbody>
                         @isset($notetypes)
-                        @foreach ($notetypes as $key => $notetype)
+                        @foreach ($notetypes as $notetype)
                             <tr>
-                                <td>{{$key + 1}}</td>
+                                <td>{{$notetype->id}}</td>
                                 <td>{{$notetype->title}}</td>
                                 <td>{{$notetype->description}}</td>
                                 <td>{{$notetype->mailtemplate_id}}</td>

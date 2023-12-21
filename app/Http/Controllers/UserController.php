@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+ 
     function login()
     {
         return view('user.login');
@@ -34,13 +35,10 @@ class UserController extends Controller
         $admin->password_confirmation = Hash::make($request->password_confirmation);
         $save = $admin->save();
 
-        // if($save)
-        // {
-        //     return back()->with('success', 'You have been registered successfully!');
-        // }
-        // else{
-        //     return back()->with('fail', 'Something went wrong, try again');
-        // }
+        // return redirect('user/login');
+
+        return back()->with('success', 'You have been registered successfully. Please Login!');
+               
     }
     
     function check(Request $request)
@@ -56,8 +54,8 @@ class UserController extends Controller
             return back()->with('fail','We do not recognize your email address');
         }else {
             if(Hash::check($request->password, $userInfo->password)){
-                $request->session()->put('LoggedUser', $userInfo->id);
-                return redirect('profile/dashboard');
+                $request->session()->put('loggedInUser', $userInfo->id);
+                return redirect('profile/view');
             }else
             {
                 return back()->with('fail','Incorrect password');
@@ -67,16 +65,11 @@ class UserController extends Controller
 
     function logout()
     {
-        if(session()->has('LoggedUser')){
-            session()->pull('LoggedUser');
+        if(session()->has('loggedInUser')){
+            session()->pull('loggedInUser');
             return redirect('/user/login');
         }
 
-    }
-    function dashboard()
-    {
-        $data = ['LoggedUserInfo'=>Admin::where('id', '=', session('LoggedUser'))->first()];
-        return view('profile.dashboard', $data);
     }
 
 }

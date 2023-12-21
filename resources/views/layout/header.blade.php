@@ -1,4 +1,4 @@
-<header class="topbar" data-navbarbg="skin5">
+{{-- <header class="topbar" data-navbarbg="skin5">
     <nav class="navbar top-navbar navbar-expand-md navbar-dark">
         <div class="navbar-header" data-logobg="skin5">
             <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
@@ -52,68 +52,120 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-bell font-24"></i>
                     </a>
-                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                        <a class="dropdown-item" href="#">Among us will be start soon</a>
+                        <a class="dropdown-item" href="#">You have an event tomorrow</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-              
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="font-24 mdi mdi-comment-processing"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" aria-labelledby="2">
-                        <ul class="list-style-none">
-                            <li>
-                                <div class="">
-                                   
-                                    <a href="javascript:void(0)" class="link border-top">
-                                        <div class="d-flex no-block align-items-center p-10">
-                                            <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
-                                            <div class="m-l-10">
-                                                <h5 class="m-b-0">Event today</h5> 
-                                                <span class="mail-desc">Just a reminder that event</span> 
-                                            </div>
-                                        </div>
-                                    </a>
-                                 
-                                    <a href="javascript:void(0)" class="link border-top">
-                                        <div class="d-flex no-block align-items-center p-10">
-                                            <span class="btn btn-info btn-circle"><i class="ti-settings"></i></span>
-                                            <div class="m-l-10">
-                                                <h5 class="m-b-0">Settings</h5> 
-                                                <span class="mail-desc">You can customize this template</span> 
-                                            </div>
-                                        </div>
-                                    </a>
-                                   
-                                    <a href="javascript:void(0)" class="link border-top">
-                                        <div class="d-flex no-block align-items-center p-10">
-                                            <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
-                                            <div class="m-l-10">
-                                                <h5 class="m-b-0">Launch Admin</h5> 
-                                                <span class="mail-desc">Just see the my new admin!</span> 
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
                     </div>
                 </li>
                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('assets/images/users/1.jpg')}}" alt="user" class="rounded-circle" width="31"></a>
                     <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                        <a class="dropdown-item" href="{{ route('profile.dashboard')}}"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                        <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                        <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-                        <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+                        <a class="dropdown-item" href="{{ route('profile.index')}}"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
                         <a class="dropdown-item" href="{{ route('user.logout')}}"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
                    </div>
                 </li>
             </ul>
         </div>
+    </nav>
+</header> --}}
+
+
+<header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="#" class="logo d-flex align-items-center">
+        <img src="{{ asset('import/assets/img/logo.png')}}" alt="">
+        <span class="d-none d-lg-block">ReminderVault</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div>
+
+    <div class="search-bar">
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">3</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 3 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p> Lorem Ipsum has been the industry's ....</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Why do we use it?</h4>
+                <p>It is a long established fact that a rea...</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>1914 translation</h4>
+                <p>we denounce with righteous indignation.</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+          
+        </li><!-- End Notification Nav -->
+
+          <a class="nav-link nav-icon" href="{{ route('profile.dashboard')}}">
+            <i class="bi bi-person"></i>
+          </a>
+
+      </ul>
     </nav>
 </header>
